@@ -3,6 +3,8 @@ function main () {
 
   var diagramElm = document.getElementById('diagram');
 
+  var copyLink = document.getElementById('copyLink');
+
   var rebuild = function () {
     var elm = document.getElementById('diagram');
     var parent = elm.parentNode;
@@ -18,7 +20,6 @@ function main () {
     diagram.drawSVG("diagram", {theme: 'simple'});
   };
 
-
   inputForm.addEventListener('submit', function(event) {
     event.preventDefault();
     var diagramInput = document.getElementById('diagram-input');
@@ -26,6 +27,35 @@ function main () {
     rebuild();
     draw(text);
   });
+
+  copyLink.addEventListener('click', function (event) {
+    event.preventDefault();
+    var baseUrl = location.href;
+    var diagramInput = document.getElementById('diagram-input');
+    var encodedText = btoa(diagramInput.value);
+    if (encodedText) {
+      baseUrl += '?t=';
+      baseUrl += encodedText;
+    }
+    copyToClipboard(baseUrl);
+  });
+
+  // Initialize
+  var initText = getURLParameter('t');
+  if(initText) {
+    initText = atob(initText);
+    inputForm.value = initText;
+    draw(initText);
+  }
+
+  function getURLParameter(name) {
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+  }
+
+  function copyToClipboard(text) {
+    window.prompt("Copy to clipboard: Ctrl(Cmd)+C, Enter", text);
+  }
+
 }
 
 if (document.readyState !== 'loading') {
