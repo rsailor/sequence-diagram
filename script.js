@@ -30,7 +30,7 @@ function main () {
 
   copyLink.addEventListener('click', function (event) {
     event.preventDefault();
-    var baseUrl = location.href;
+    var baseUrl = location.origin + location.pathname;
     var diagramInput = document.getElementById('diagram-input');
     var encodedText = btoa(diagramInput.value);
     if (encodedText) {
@@ -49,7 +49,7 @@ function main () {
   }
 
   function getURLParameter(name) {
-    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\+/g, '%20'))||null
+    return decodeURIComponent((new RegExp('[?|&]' + name + '=' + '([^&;]+?)(&|#|;|$)').exec(location.search)||[,""])[1].replace(/\/$/,''))||null
   }
 
   function copyToClipboard(text) {
