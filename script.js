@@ -5,6 +5,8 @@ function main () {
 
   var copyLink = document.getElementById('copyLink');
 
+  var diagramInput = document.getElementById('diagram-input');
+
   var rebuild = function () {
     var elm = document.getElementById('diagram');
     var parent = elm.parentNode;
@@ -31,7 +33,6 @@ function main () {
   copyLink.addEventListener('click', function (event) {
     event.preventDefault();
     var baseUrl = location.origin + location.pathname;
-    var diagramInput = document.getElementById('diagram-input');
     var encodedText = btoa(diagramInput.value);
     if (encodedText) {
       baseUrl += '?t=';
