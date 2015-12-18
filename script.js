@@ -7,6 +7,8 @@ function main () {
 
   var diagramInput = document.getElementById('diagram-input');
 
+  var copyOutput = document.getElementById('copy-output');
+
   var rebuild = function () {
     var elm = document.getElementById('diagram');
     var parent = elm.parentNode;
@@ -54,7 +56,13 @@ function main () {
   }
 
   function copyToClipboard(text) {
-    window.prompt("Copy to clipboard: Ctrl(Cmd)+C, Enter", text);
+    console.log(text);
+    copyOutput.value = text;
+    var range = document.createRange();
+    range.selectNode(copyOutput);
+    window.getSelection().addRange(range);
+    document.execCommand('copy');
+    // window.prompt("Copy to clipboard: Ctrl(Cmd)+C, Enter", text);
   }
 
 }
