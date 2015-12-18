@@ -44,7 +44,7 @@ function main () {
   var initText = getURLParameter('t');
   if(initText) {
     initText = atob(initText);
-    inputForm.value = initText;
+    diagramInput.value = initText;
     draw(initText);
   }
 
